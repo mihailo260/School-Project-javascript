@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            box-sizing: border-box;
+            font-family: 'Spline Sans', sans-serif;
+        }
+
+        .wrapper {
+            width: 70%;
+            margin: 0 auto;
+            background-image: url('images/6.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding-bottom: 60px;
+
+        }
+
+
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        .logo>img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+        }
+
+        .commercial {
+            border-radius: 15px;
+            width: 200px;
+            height: 100px;
+            margin: 15px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            animation: effect 5s infinite;
+        }
+
+        .msg {
+            font-size: 2em;
+            color: white;
+        }
+
+        .commercial>.material-icons {
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+            transition: 1s all;
+        }
+
+        .commercial>.material-icons:hover {
+            transform: rotate(180deg);
+            transition: 1s all;
+        }
+
+        .links>a {
+            text-decoration: none;
+            margin: 15px;
+            display: block;
+            color: white;
+        }
+
+        @keyframes effect {
+            0% {
+                transform: scale(1) rotate(0deg);
+
+            }
+
+            50% {
+                transform: scale(1.07, 1) rotate(1deg);
+
+            }
+
+            100% {
+                transform: scale(1) rotate(-1deg);
+
+            }
+        }
+
+        .section {
+            overflow: hidden;
+            position: relative;
+            font-size: 2em;
+            width: 500px;
+            margin: 0 auto;
+            display: flex;
+            height: 500px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 0 12px;
+            padding-bottom: 0;
+        }
+
+        .quote {
+            position: relative;
+            width: 80%;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .quote>img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .quote-arrow {
+            position: absolute;
+            right: -20px;
+            bottom: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+
+        }
+
+        .quote-arrow>i {
+            font-size: 40px;
+        }
+
+        .quote-arrow:hover i {
+            animation: arrowMove 0.3s ease-in-out;
+        }
+
+        .quote-arrow:hover .underline-effect {
+            animation: 0.3s underlineEffect ease-in-out;
+        }
+
+        @keyframes arrowMove {
+            50% {
+                transform: translateX(6px);
+            }
+
+            100% {
+                transform: translateX(-6px);
+            }
+        }
+
+        .underline-effect {
+            height: 1px;
+            background-color: black;
+            opacity: 0.8;
+            width: 0;
+            animation-fill-mode: forwards
+        }
+
+        @keyframes underlineEffect {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .umotvorina {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: 25px;
+            width: 20%;
+            height: 100px;
+            margin: 10px;
+        }
+
+        .content {
+            width: 80%;
+            display: flex;
+            gap: 10px;
+            margin: 200px auto;
+        }
+
+        .student {
+            width: 45%;
+            padding: 15px;
+            background-color: white;
+            border-radius: 25px;
+        }
+
+        .data {
+            width: 45%;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: 25px;
+        }
+
+        footer {
+            text-align: center;
+            width: 70%;
+            margin: 0 auto;
+            background-color: #111;
+            padding: 15px 0;
+            color: white;
+        }
+
+
+
+        .bar {
+            width: 0%;
+            height: 10px;
+            background-color: tomato;
+            position: absolute;
+            width: 100%;
+        }
+
+        #top {
+            top: 0;
+            z-index: 1;
+            background-color: yellowgreen;
+            transform: translateX(-5px);
+        }
+
+        #top-copy {
+            top: 0;
+            background-color: tomato;
+            z-index: 2;
+            width: 0;
+            transform: translateX(-5px);
+        }
+
+        #right {
+            right: 0;
+            transform: rotate(90deg) translateX(500px);
+            transform-origin: top right;
+            z-index: 2;
+            background-color: yellowgreen;
+        }
+
+        #right-copy {
+            background-color: tomato;
+            z-index: 1;
+            right: 0;
+            transform: rotate(90deg) translateX(500px);
+            transform-origin: top right;
+
+        }
+
+        #bottom {
+            bottom: 0;
+            background-color: yellowgreen;
+            z-index: 2;
+            transform: translateX(-5px);
+        }
+
+        #bottom-copy {
+            background-color: tomato;
+            z-index: 1;
+            bottom: 0;
+            transform: translateX(-5px);
+        }
+
+        #left {
+            left: 0;
+            transform: rotate(90deg) translateY(-10px);
+            transform-origin: top left;
+            background-color: yellowgreen;
+            z-index: 2;
+        }
+
+        #left-copy {
+            left: 0;
+            transform: rotate(90deg) translateY(-10px);
+            transform-origin: top left;
+            z-index: 1;
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo"><img src="images/logo.png"></div>
+            <div class="links">
+                <a href="zad1.html"><span>Prvi zadatak</span></a>
+                <a href="zad2.html"><span>Drugi zadatak</span></a>
+                <a href="zad3.html"><span>Treci zadatak</span></a>
+            </div>
+            <div class="commercial">
+                <p class="msg"></p>
+                <i class="material-icons" onclick="cancelCommercial()">cancel
+                </i>
+            </div>
+        </header>
+        <div class="content">
+            <div class="student">
+                <p> ime i prezime: Mihailo Tomic</p>
+                <p>
+
+                    Kombinacije zadataka: 1
+                    ink ka galeriji slika (kreirati galeriju sa Vašim efektom odabiranja i pregleda slika).
+
+                    link ka stranici koja sadrži formu za naručivanje hrane svako ulazno polje se validira.
+
+                    link ka igri "Klikni za 10 sekundi na 16 brojeva u rastućem redosledu" ,brojevi su raspoređeni
+                    slučajno kao matrica 4x4.
+                </p>
+            </div>
+            <div class="data">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit neque atque ipsam expedita voluptatibus
+                pariatur fuga velit non in asperiores, laborum eius facere doloremque quisquam ea incidunt dolore
+                assumenda quas.
+            </div>
+        </div>
+        <h1 style="text-align: center; padding: 5px; color: white;">Poznate Latinske umotvorine:</h1>
+        <div class="section">
+            <div class="quote">
+                <img src="images/quote.png">
+
+                <p id="showquote"></p>
+                <div class="quote-arrow">
+                    <div style="font-size: 20px; transform: translateX(8px);">
+                        Sledeca
+                        <div class="underline-effect"></div>
+                    </div>
+                    <i class="material-icons">keyboard_arrow_right</i>
+                </div>
+            </div>
+            <div class="bar" id="top"></div>
+            <div class="bar" id="top-copy"></div>
+            <div class="bar" id="right"></div>
+            <div class="bar" id="right-copy"></div>
+            <div class="bar" id="bottom"></div>
+            <div class="bar" id="bottom-copy"></div>
+            <div class="bar" id="left"></div>
+            <div class="bar" id="left-copy"></div>
+        </div>
+    </div>
+    <footer>
+        © 2022 Одсек Висока школа електротехнике и рачунарства, Београд
+        Војводе Степе 283, office@viser.edu.rs, +381 11 2471 099
+    </footer>
+    <script>
+        
+            
+            let commercialColors = ['thistle', 'chocolate', 'tomato'];
+            let commercialMessages = ['reklama1', 'reklama2', 'reklama3'];
+            const quotes = [
+                'Cogito ergo sum',
+                'Non nobis solum nati sumus',
+                'Braccas meas vescimini',
+                'Pulvis et umbra sumus',
+                'Omnia mutantur, nihil interit'
+            ];
+            let currentQuote = quotes[0]
+            document.getElementById('showquote').innerHTML = currentQuote
+            let icon = document.getElementsByClassName('material-icons');
+            let commercial = document.getElementsByClassName('commercial');
+            let msg = document.getElementsByClassName('msg');
+            let k = 0;
+            let atag = document.querySelectorAll("a");
+            let width = 1;
+            function generateCommercial() {
+                let content = ''
+                let backgroundColor = ''
+                content = commercialMessages[Math.floor(Math.random() * commercialMessages.length)];
+                backgroundColor = commercialColors[Math.floor(Math.random() * commercialColors.length)];
+                commercial[0].style.backgroundColor = backgroundColor
+                msg[0].innerHTML = content
+
+            }
+            
+            generateCommercial()
+            function cancelCommercial() {
+                commercial[0].style.opacity = 0;
+            }
+            let quoteInterval = setInterval(() => {
+                generateQuote()
+                let percent = 0
+                let progressBar = setInterval(() => {
+                    percent += 0.5
+                    if (percent <= 25)
+                        document.getElementById('top-copy').style.width = percent * 4 + '%'
+                    if (percent > 25 && percent <= 50)
+                        document.getElementById('right').style.width = 100 - ((percent * 4) - 100) + '%'
+                    if (percent > 50 && percent <= 75)
+                        document.getElementById('bottom').style.width = 100 - ((percent * 4) - 200) + '%'
+                    if (percent > 75 && percent <= 100)
+                        document.getElementById('left').style.width = 100 - ((percent * 4) - 300) + '%'
+
+                    if (percent === 100) {
+                        clearInterval(progressBar)
+                        document.getElementById('top-copy').style.width = 0
+                        document.getElementById('right').style.width = 100 + '%'
+                        document.getElementById('bottom').style.width = 100 + '%'
+                        document.getElementById('left').style.width = 100 + '%'
+                    }
+
+                }, 50);
+            }, 10000);
+
+            function generateQuote() {
+                const quotesCopy = quotes.filter(q => q !== currentQuote)
+                let quote = quotesCopy[Math.floor(Math.random() * quotesCopy.length)]
+                document.getElementById('showquote').innerHTML = quote
+                currentQuote = quote
+            }
+
+       
+
+    </script>
+</body>
+
+</html>

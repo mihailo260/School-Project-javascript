@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        .wrapper {
+            display: flex;
+            height: 100vh;
+            align-items: flex-end;
+            justify-content: center;
+            background: #D3CCE3;
+            background: -webkit-linear-gradient(to left, #E9E4F0, #D3CCE3);
+            background: linear-gradient(to left, #E9E4F0, #D3CCE3);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .arrows {
+            display: flex;
+            cursor: pointer;
+            user-select: none;
+
+
+
+        }
+
+        .arrow {
+            outline: 2px solid black;
+            margin: 5px;
+            border-radius: 15px;
+            background-color: whitesmoke;
+            opacity: 0.5;
+        }
+
+        .material-icons {
+            font-size: 100px;
+        }
+
+        .arrow:hover {
+            background-color: aqua;
+            transition: 1s all ease-in-out;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="arrows">
+            <div class="arrow" onclick="back()">
+                <i class="material-icons">arrow_back</i>
+            </div>
+            <div class="arrow" onclick="forward()">
+                <i class="material-icons">arrow_forward</i>
+            </div>
+        </div>
+    </div>
+    <script>
+        var wrapper = document.getElementsByClassName('wrapper');
+        var image_array = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg','6.jpg'];
+        var i = 1;
+        function forward() {
+            if (i < image_array.length - 1) {
+                i++;
+
+            } else {
+                i = 0;
+            }
+            wrapper[0].style.backgroundImage = 'url(images/' + image_array[i] + ' )'
+        }
+        function back() {
+            if (i < 1) {
+                i = image_array.length - 1
+            } else {
+                i--
+            }
+            wrapper[0].style.backgroundImage = 'url(images/' + image_array[i] + ' )'
+        }
+
+    </script>
+</body>
+
+</html>

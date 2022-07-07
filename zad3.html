@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url('images/4.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+            text-align: center;
+        }
+
+        #wrapper {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            /* border: 1px solid red; */
+        }
+
+        .column {
+            height: 60px;
+            width: 60px;
+            border: 1px solid #ccc;
+            margin: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            cursor: pointer;
+        }
+
+        .column:hover {
+            background-color: rgba(44, 187, 99, 1);
+            transition: 500ms all ease-in-out;
+        }
+
+        .green {
+            background-color: rgba(44, 187, 99, 1);
+        }
+
+        .results {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 3em;
+        }
+
+        .btn {
+            display: block;
+            margin: 100px auto;
+            transform: scale(2);
+            background-color: #c2fbd7;
+            border-radius: 100px;
+            box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+            color: green;
+            cursor: pointer;
+            padding: 7px 20px;
+            text-align: center;
+            transition: all 250ms;
+            border: 0;
+            font-size: 16px;
+            user-select: none;
+
+        }
+
+        .btn:hover {
+            box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+            transform: scale(3);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Kliknite sve brojeve u rastucem redosledu za manje od 10 sekundi</h1>
+    <div class="timer">0</div>
+    <div id="wrapper">
+        <div class="results">Brojevi</div>
+    </div>
+    <button class="btn" onclick="location.reload()">Restartuj</button>
+    <script>
+        const randomNumbers = []
+        const finalArray = []
+        var time = 0;
+        let timer = document.getElementsByClassName('timer')
+        const num = 16
+        // num = row * column
+        function generateRandomNumbers(num) {
+            for (let i = 0; i < num; i++) {
+                let temp = Math.floor(Math.random() * num);
+                if (randomNumbers.indexOf(temp) == -1) {
+                    randomNumbers.push(temp);
+                }
+                else
+                    i--;
+            }
+        }
+        function start(row, column) {
+            generateRandomNumbers(num)
+            let k = 0
+            if (finalArray.length != randomNumbers.length && time > 10) {
+                console.log('lost')
+                alert('LOST')
+            }
+            for (let i = 0; i < row; i++) {
+                let div = document.createElement('div')
+                div.classList.add('row')
+                for (let j = 0; j < column; j++) {
+                    let div2 = document.createElement('div')
+                    div2.classList.add('column')
+                    div2.innerHTML = randomNumbers[k] + 1
+                    div.appendChild(div2)
+                    div2.addEventListener('click', () => {
+                        if (div2.innerHTML > finalArray[finalArray.length - 1] || finalArray.length < 1) {
+                            finalArray.push(parseInt(div2.innerHTML))
+                            res = document.getElementsByClassName('results')
+                            res[0].innerHTML += div2.innerHTML + ' '
+                            div2.classList.add('green')
+                            if (finalArray.length == randomNumbers.length) {
+                                let alert = confirm('Pobedili se za ponovno igranje pritisnite ok')
+                                if (alert) {
+                                    location.reload()
+                                } else {
+                                    window.location.href = "index.html";
+                                }
+                                return
+                            }
+
+                        } else {
+                            return
+                        }
+                    })
+
+                    k++
+                }
+                document.getElementById('wrapper').appendChild(div)
+
+            }
+
+        }
+        var inter = setInterval(() => {
+            console.log(time)
+            timer[0].innerHTML = time
+            time++
+            if (time > 10) {
+                clearInterval(inter)
+            }
+        }, 1000);
+        setTimeout(() => {
+            console.log(time)
+            if (finalArray.length != randomNumbers.length) {
+                let alert = confirm('Izgubio si :( , za ponovno igranje pritisni ok')
+                if (alert) {
+                    location.reload()
+                } else {
+                    window.location.href = "index.html";
+                }
+            }
+        }, 1000 * 12);
+        start(4, 4)
+    </script>
+</body>
+
+</html>

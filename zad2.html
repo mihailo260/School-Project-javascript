@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .wrapper {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .content {
+        margin: 15px 0;
+        z-index: 2;
+    }
+
+    .item {
+        outline: 1px solid rgba(128, 128, 128, 0.5);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 15px;
+        margin-top: 24px;
+        max-width: 800px;
+    }
+
+    .item-items {
+        padding: 15px;
+        display: flex;
+        text-align: left;
+    }
+
+    .item-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .item-image>img {
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+    }
+
+    .item-heading {
+        width: 100%;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-heading .price {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .item-heading .price i {
+        font-size: 1.8rem;
+        margin-left: 100px;
+        color: green;
+        cursor: pointer;
+    }
+
+    .blackscreen {
+        position: fixed;
+        top: 0;
+        display: none;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 100;
+    }
+
+    .loading-screen{
+        position: fixed;
+        top: 0;
+        display: none;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+    }
+
+    .modal {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 400px;
+        width: 800px;
+        border-radius: 15px;
+        background-color: white;
+    }
+
+    .x-mark {
+        text-align: right;
+        cursor: pointer;
+        font-size: 2em;
+    }
+
+    .section-items {
+        display: flex;
+        padding: 0 24px;
+    }
+
+    .left-section {
+        box-sizing: border-box;
+        padding: 0 24px;
+        width: 50%;
+        height: 325px;
+        overflow: auto;
+    }
+
+    .left-section>h2 {
+        margin-top: 0;
+    }
+
+    .left-section-prilozi {
+        max-height: 260px;
+    }
+
+    .selected-items {
+        width: 90%;
+        margin: 0 auto;
+        margin: 10px 0;
+        outline: 1px solid rgba(0, 128, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        margin-left: 5px;
+        transition: 0.5s all;
+    }
+
+    .selected-items>i {
+        cursor: pointer;
+        color: green;
+        user-select: none;
+    }
+
+
+    .cart-box {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 300px;
+        height: calc(100vh - 50px);
+        border-left: 2px solid rgba(218, 165, 32, 0.7);
+        border-top-left-radius: 20px;
+        overflow: hidden;
+        border-top: 20px solid goldenrod;
+        border-bottom: 30px solid goldenrod;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .cart-box h3 {
+        margin: 60px 0 80px;
+        font-size: 1.6rem
+    }
+
+    .cart-box-order-btn {
+        width: 300px;
+    }
+
+    .cart-box-order-btn div {
+        box-sizing: border-box;
+        cursor: pointer;
+        border-radius: 50px;
+        margin: 0 auto;
+        background-color: green;
+        width: 240px;
+        color: white;
+        padding: 12px 48px;
+        font-size: 1.4rem;
+    }
+
+    .cart-box-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        margin: 60px 0 80px;
+        font-size: 1.2rem
+    }
+
+    #cart-items {
+        max-height: 440px;
+        overflow-y: auto;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+        font-size: 1.3rem;
+    }
+
+    .cart-item-delete {
+        content: 'x';
+        user-select: none;
+        border-radius: 50px;
+        color: red;
+        font-size: 24px;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    .left-section-items {
+        height: 280px;
+        overflow-y: auto;
+    }
+
+    .left-section-items .cart-item {
+        font-size: 1rem;
+        padding-right: 16px;
+    }
+
+    .left-section-price {
+        padding-top: 16px;
+        border-top: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.3rem;
+    }
+
+    .right-section {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 1px solid #ccc;
+        width: 50%;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        margin-bottom: 24px;
+        border-radius: 16px;
+        padding: 8px 16px;
+        width: 100%;
+        outline: none;
+        border: 1px solid green;
+        box-sizing: border-box;
+
+    }
+
+    .btn {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    button {
+        padding: 8px 40px;
+        font-size: 1.1rem;
+        background-color: green;
+        border-radius: 15px;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <div class="blackscreen">
+        <div class="modal">
+            <div class="x-mark">
+                <i class="material-icons" onclick="showModal()" style="margin-right: 4px;">cancel</i>
+            </div>
+            <div class="section-items">
+                <div class="left-section">
+                    <div class="left-section-items"></div>
+                    <div class="left-section-price">
+                        <div>Cena: </div>
+                        <div id="left-section-price-sum">s</div>
+                    </div>
+                </div>
+                <div class="right-section">
+                    <form>
+                        <input type="text" placeholder="adresa" id="address">
+                        <input type="text" placeholder="email" id="email">
+                        <!-- Namerno sam stavio text zbog validacije -->
+                        <input type="text" placeholder="br telefona" id="number">
+                    </form>
+                    <div class="btn"><button onclick="validateInputs()">Naruci</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-screen">
+        <div style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+           <div style="width: 80px; height: 80px;">
+                <img src="/images_food/loading-spinner.gif" alt="">
+           </div>
+        </div>
+    </div>
+
+    <div class="cart-box">
+        <h3>Korpa:</h3>
+
+        <div id="cart-items" style="padding: 0 20px;">
+
+        </div>
+
+        <div style="position: absolute; bottom: 80px; ">
+            <div class="cart-box-price">
+                <div>Cena: </div>
+                <div id="total-sum">0 RSD</div>
+            </div>
+            <div class='cart-box-order-btn'>
+                <div onclick="showModal()">Naruci</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrapper">
+        <div class="content">
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Capricciosa 24cm</div>
+                        <div class="price">
+                            <span>240 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Capricciosa 24cm',240)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Capricciosa 32cm</div>
+                        <div class="price">
+                            <span>400 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Capricciosa 32cm',400)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Capricciosa 40cm</div>
+                        <div class="price">
+                            <span>700 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Capricciosa 40cm',700)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Capricciosa 50cm</div>
+                        <div class="price">
+                            <span>1100 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Capricciosa 50cm',1100)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Margherita 24cm</div>
+                        <div class="price">
+                            <span>200 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Margherita 32cm',200)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Margherita 32cm</div>
+                        <div class="price">
+                            <span>350 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Margherita 32cm',350)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Margherita 40cm</div>
+                        <div class="price">
+                            <span>600 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Margherita 40cm',600)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-items">
+                    <div class="item-image"><img src="images_food/2.jfif"></div>
+                    <div class="item-heading">
+                        <div style="font-size: 1.8rem;">Margherita 50cm</div>
+                        <div class="price">
+                            <span>950 RSD</span>
+                            <i class="material-icons" onclick="addToCart('Margherita 50cm',950)">add_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        let counter = false
+        var cart = []
+        var total = 0
+        function addToCart(name, value) {
+            cart.push({
+                product: name,
+                price: value
+            })
+
+            showCart()
+        }
+        function showCart() {
+            document.getElementById('cart-items').innerHTML = ''
+
+            for (let i = 0; i < cart.length; i++) {
+                var cardItem = document.createElement('div')
+                cardItem.classList.add('cart-item')
+
+                var cartItemName = document.createElement('div')
+                cartItemName.classList.add('cart-item-name')
+                cartItemName.innerHTML = cart[i].product
+
+                var cartItemPrice = document.createElement('div')
+                cartItemPrice.classList.add('cart-item-price')
+                cartItemPrice.innerHTML = cart[i].price
+
+                var cartItemDelete = document.createElement('div')
+                cartItemDelete.addEventListener('click', () => removeItemFromCart(i))
+                cartItemDelete.innerHTML = 'x'
+                cartItemDelete.classList.add('cart-item-delete')
+
+                cardItem.appendChild(cartItemName)
+                cardItem.appendChild(cartItemPrice)
+                cardItem.appendChild(cartItemDelete)
+
+                document.getElementById('cart-items').appendChild(cardItem)
+            }
+
+            total = cart.reduce(
+                (currentSum, cartItem) => currentSum + cartItem.price,
+                0
+            )
+            document.getElementById('total-sum').innerHTML = total + ',00 RSD'
+        }
+
+        function showSelectedArticles() {
+            document.getElementsByClassName('left-section-items')[0].innerHTML = ''
+
+            for (let i = 0; i < cart.length; i++) {
+                var cardItem = document.createElement('div')
+                cardItem.classList.add('cart-item')
+
+                var cartItemName = document.createElement('div')
+                cartItemName.classList.add('cart-item-name')
+                cartItemName.innerHTML = cart[i].product
+
+                var cartItemPrice = document.createElement('div')
+                cartItemPrice.classList.add('cart-item-price')
+                cartItemPrice.innerHTML = cart[i].price + ',00 RSD'
+
+                cardItem.appendChild(cartItemName)
+                cardItem.appendChild(cartItemPrice)
+
+                document.getElementsByClassName('left-section-items')[0].appendChild(cardItem)
+            }
+
+            document.querySelector('#left-section-price-sum').innerHTML = total + ',00 RSD'
+        }
+
+        function removeItemFromCart(id) {
+            cart.splice(id, 1)
+            showCart()
+        }
+
+        function showModal() {
+            if(!cart.length)
+                return false
+
+            if (counter == false) {
+                document.getElementsByClassName('blackscreen')[0].style.display = 'block'
+                counter = true
+            } else {
+                document.getElementsByClassName('blackscreen')[0].style.display = 'none'
+                counter = false
+            }
+
+            showSelectedArticles()
+
+        }
+
+        function checkAddres(){
+            if(document.getElementById('address').value.length){
+                document.getElementById('address').style.border = '1px solid green'
+                return true          
+            }else{
+                document.getElementById('address').style.border = '1px solid red'
+                return false          
+            }
+        }
+        function validateEmail(){
+            var email = document.getElementById('email').value
+            if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+                document.getElementById('email').style.border = '1px solid green'
+                return true
+            }else{
+                document.getElementById('email').style.border = '1px solid red'
+                return false
+            }
+        }
+
+        function validateNumber(){
+            var number = document.getElementById('number').value
+
+            if(number[0] ==='+' && number.length === 13){
+                for (let i = 1; i < number.length; i++) {
+                    if(isNaN(number[i])){
+                        document.getElementById('number').style.border = '1px solid red'
+                        return false
+                    }   
+                }
+                document.getElementById('number').style.border = '1px solid green'
+                return true
+            }
+
+            if( number.length === 10){
+                for (let i = 0; i < number.length; i++) {
+                    if(isNaN(number[i])){
+                        document.getElementById('number').style.border = '1px solid red'
+                        return false
+                    }   
+                }
+                document.getElementById('number').style.border = '1px solid green'
+                return true
+            }
+
+            document.getElementById('number').style.border = '1px solid red'
+            return false
+        }
+
+        function validateInputs(){
+            if(validateNumber() && validateEmail() && checkAddres()){
+                document.getElementsByClassName('loading-screen')[0].style.display = 'block'
+                setTimeout(() => {
+                    document.getElementsByClassName('loading-screen')[0].style.display = 'none'
+                    document.getElementsByClassName('blackscreen')[0].style.display = 'none'
+                    counter = false
+                    cart = []
+                    showCart()
+                    setTimeout(() => {
+                        alert('Upesno ste narucili hranu!') 
+                    }, 200)
+                }, 1200) 
+            }
+        }
+
+    </script>
+</body>
+
+</html>

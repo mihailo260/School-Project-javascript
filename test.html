@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .modal {
+        position: relative;
+        height: 500px;
+        width: 500px;
+        background-color: yellowgreen;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .bar {
+        width: 0%;
+        height: 10px;
+        background-color: tomato;
+        position: absolute;
+    }
+
+    #top {
+        top: 0;
+    }
+
+    #right {
+        right: 0;
+        transform: rotate(90deg) translateX(500px);
+        transform-origin: top right;
+        z-index: 2;
+        width: 100%;
+        background-color: yellowgreen;
+    }
+
+    #right-copy {
+        background-color: tomato;
+        width: 100%;
+        z-index: 1;
+        right: 0;
+        transform: rotate(90deg) translateX(500px);
+        transform-origin: top right;
+
+    }
+
+    #bottom {
+        bottom: 0;
+        width: 100%;
+        background-color: yellowgreen;
+        z-index: 2;
+    }
+
+    #bottom-copy {
+        background-color: tomato;
+        width: 100%;
+        z-index: 1;
+        bottom: 0
+    }
+
+    #left {
+        left: 0;
+        transform: rotate(90deg) translateY(-10px);
+        transform-origin: top left;
+        width: 100%;
+        background-color: yellowgreen;
+        z-index: 2;
+    }
+
+    #left-copy {
+        left: 0;
+        transform: rotate(90deg) translateY(-10px);
+        transform-origin: top left;
+        z-index: 1;
+        background-color: tomato;
+        width: 100%;
+    }
+</style>
+
+<body style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div class="modal">
+        <div class="bar" id="top"></div>
+        <div class="bar" id="right"></div>
+        <div class="bar" id="right-copy"></div>
+        <div class="bar" id="bottom"></div>
+        <div class="bar" id="bottom-copy"></div>
+        <div class="bar" id="left"></div>
+        <div class="bar" id="left-copy"></div>
+    </div>
+
+    <script>
+
+        let counter = 0;
+        let progressBar = setInterval(() => {
+            counter += 0.1
+
+            if (counter <= 25)
+                document.getElementById('top').style.width = counter * 4 + '%'
+            if (counter > 25 && counter <= 50)
+                document.getElementById('right').style.width = 100 - ((counter * 4) - 100) + '%'
+            if (counter > 50 && counter <= 75)
+                document.getElementById('bottom').style.width = 100 - ((counter * 4) - 200) + '%'
+            if (counter > 75 && counter <= 100)
+                document.getElementById('left').style.width = 100 - ((counter * 4) - 300) + '%'
+
+            if (counter === 100)
+                clearInterval(progressBar)
+
+        }, 10);
+
+
+
+
+    </script>
+</body>
+
+</html>
